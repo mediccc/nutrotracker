@@ -111,7 +111,6 @@ export function NutritionPage() {
             </div>
             <div className={`flex w-full max-w-[640px] h-fit flex-col gap-[24px] p-[20px] rounded-[16px] bg-ui-card-default border-[2px] border-palette-dark-8 ${(isMenuLoading || isCalculate) && 'animate-pulse'}`}>
                 <Text>Меню дня</Text>
-                <IconButton icon='add' onClick={() => router.push('/')}></IconButton>
                 { isMenuLoading && (
                     <div className="animate-pulse">Обновление меню...</div>
                 )}
