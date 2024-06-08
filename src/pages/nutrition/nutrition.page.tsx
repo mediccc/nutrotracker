@@ -81,7 +81,7 @@ export function NutritionPage() {
 
   return (
         <ContentLayout>
-            <div className='flex flex-row h-fit w-full max-w-[640px] gap-[8px] '>
+            <div className={`flex flex-row h-fit w-full max-w-[640px] gap-[8px] ${(isMenuLoading || isCalculate) && 'animate-pulse'}`}>
                 <DayCell date={DateTime.fromISO(String(currentMealDay)).minus({ days: 1 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).minus({ days: 1 }).toISODate()); await calculateMealDay()}} isDisabled={true}></DayCell>
                 <DayCell date={currentMealDay} onClick={async () => await calculateMealDay()} isCurrentDay={true}></DayCell>
                 <DayCell date={DateTime.fromISO(String(currentMealDay)).plus({ days: 1 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).plus({ days: 1 }).toISODate()); await calculateMealDay()}}></DayCell>
@@ -92,7 +92,7 @@ export function NutritionPage() {
             </div>
             <div className="flex w-full max-w-[640px] h-fit flex-col gap-[24px] p-[20px] rounded-[16px] bg-ui-card-default border-[2px] border-palette-dark-8">
                 <Text>Потребности</Text>
-                <div className="flex flex-row justify-between content-between w-[100%] h-fit">
+                <div className={`flex flex-row justify-between content-between w-[100%] h-fit ${(isMenuLoading || isCalculate) && 'animate-pulse'}`}>
                     <ProgressIndicator title='Энергия' value={currentMealDayCcal} goal={3100} measure='ккал'></ProgressIndicator>
                     <ProgressIndicator title='Белки' value={currentMealDayProtein} goal={110} measure='г'></ProgressIndicator>
                     <ProgressIndicator title='Жиры' value={currentMealDayFat} goal={100} measure='г'></ProgressIndicator>
@@ -102,7 +102,7 @@ export function NutritionPage() {
                     <div>Рассчет потребностей...</div>
                 )}
             </div>
-            <div className="flex w-full max-w-[640px] h-fit flex-col gap-[24px] p-[20px] rounded-[16px] bg-ui-card-default border-[2px] border-palette-dark-8">
+            <div className={`flex w-full max-w-[640px] h-fit flex-col gap-[24px] p-[20px] rounded-[16px] bg-ui-card-default border-[2px] border-palette-dark-8 ${(isMenuLoading || isCalculate) && 'animate-pulse'}`}>
                 <Text>Меню дня</Text>
                 <IconButton icon='add' href='nutrition/createUfi'></IconButton>
                 { isMenuLoading && (
