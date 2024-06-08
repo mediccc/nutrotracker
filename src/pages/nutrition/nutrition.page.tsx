@@ -84,7 +84,7 @@ export function NutritionPage() {
   return (
         <>
         <TopBar size='compact' title='Питание' icon='nutrition'></TopBar>
-        <div className="fixed bottom-[96px] right-[24px] w-auto h-auto">
+        <div className="fixed bottom-[112px] right-[24px] w-auto h-auto">
             <IconButton icon='add' size='medium' appearance='filled' onClick={() => router.push('/nutrition/createUfi')}></IconButton>
         </div>
         <ContentLayout>
