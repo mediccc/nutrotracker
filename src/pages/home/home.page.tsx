@@ -12,24 +12,14 @@ import { useAccountStore } from '@/entities/account/store/account.store';
 import { useEffect, useState } from 'react';
 import { InputFull } from '@/shared/ui/inputFull';
 import { useMealDayStore } from '@/entities/meal-day/store/meal-day.store';
+import { ContentLayout } from '@/widgets/layouts';
+import { TopBar } from '@/widgets/topBar';
 
 interface AuthForm {
   email: string
   password: string
   access: string
 }
-
-interface CreateUfiForm {
-  type: string
-  isFree: string
-  title: string
-}
-
-interface CreateMealDayForm {
-  isCompleted: string
-  date: string
-}
-
 
 const ValidationSchema = object({
   email: string([email('Не является email')]),
@@ -39,30 +29,21 @@ const ValidationSchema = object({
   ])
 })
 
-
-
 export function HomePage() {
 
   const accountIsAuth = useAccountStore((state) => state.isAuth)
   const registerAccount = useAccountStore((state) => state.registration)
   const loginAccount = useAccountStore((state) => state.login)
-  const accountUser = useAccountStore((state) => state.account)
-  const logoutAccount = useAccountStore((state) => state.logout)
-  const createMealDay = useMealDayStore((state) => state.createMealDay)
+  //const accountUser = useAccountStore((state) => state.account)
 
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
   const [isLogin, setIsLogin] = useState<boolean>(false)
-
-  const [isEmailFocus, setIsEmailFocus] = useState<boolean>(false)
-  const [isPasswordFocus, setIsPasswordFocus] = useState<boolean>(false)
 
   useEffect(() => {
     useMealDayStore.persist.rehydrate()
     useAccountStore.persist.rehydrate()
     methods.setFocus('email')
   }, [])
-  //console.log(resolver + 'sd')
+  
   const methods = useForm<AuthForm>({
       defaultValues: {
         email: '',
@@ -70,23 +51,6 @@ export function HomePage() {
       },
       mode: 'onChange',
       resolver: valibotResolver(ValidationSchema),
-  })
-
-  const methodsCreateUfi = useForm<CreateUfiForm>({
-    defaultValues: {
-      type: '',
-      isFree: '',
-      title: ''
-    },
-    mode: 'onChange'
-  })
-
-  const methodsCreateMealDay = useForm<CreateMealDayForm>({
-    defaultValues: {
-      isCompleted: '',
-      date: ''
-    },
-    mode: 'onChange'
   })
 
   const submitRegistration: SubmitHandler<AuthForm> = data => {
@@ -97,16 +61,10 @@ export function HomePage() {
     loginAccount(data.email, data.password)
   }
 
-  const submitCreateUfi: SubmitHandler<CreateUfiForm> = data => {
-    console.log('неа')
-  }
-
-  const submitCreateMealDay: SubmitHandler<CreateMealDayForm> = data => {
-    createMealDay(Number(accountUser.id), Boolean(data.isCompleted), String(data.date))
-  }
-
   return (
-      <div className='m-8 flex flex-col gap-[20px] content-center justify-center'>
+    <>
+      <TopBar size='compact' title='Здоровье' icon='cardiology'></TopBar>
+      <ContentLayout>
         {!accountIsAuth && (
           <div>Не авторизован.</div>
         )}
@@ -179,6 +137,7 @@ export function HomePage() {
         </Card>
         )}
         
-      </div>
+      </ContentLayout>
+    </>
   )
 }

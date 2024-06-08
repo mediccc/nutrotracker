@@ -116,7 +116,6 @@ export const BaseLayout = ({ children, ...props }: PropsWithChildren) => {
       <>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
         <div className={`${NTSomic.className} h-[2000px]`}>
-          <TopBar size="compact"/>
           <main className={`h-[100%]`}>{children}</main>
           <BottomBar/>
         </div>

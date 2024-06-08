@@ -16,6 +16,7 @@ import { Meal } from '@/shared/ui/meal';
 import { useUfiStore } from '@/entities/ufi/store/ufi.store';
 import MealDayService from '@/entities/meal-day/service/meal-day.service';
 import { MealDay } from '@/entities/meal-day/models/meal-day';
+import { TopBar } from '@/widgets/topBar';
 
 export function NutritionPage() {
 
@@ -80,6 +81,11 @@ export function NutritionPage() {
 
 
   return (
+        <>
+        <TopBar size='compact' title='Питание' icon='nutrition'></TopBar>
+        <div className="fixed bottom-[164px] right-[72px] w-auto h-auto">
+            <IconButton icon='add'></IconButton>
+        </div>
         <ContentLayout>
             <div className={`flex flex-row h-fit w-full max-w-[640px] gap-[8px] ${(isMenuLoading || isCalculate) && 'animate-pulse'}`}>
                 <DayCell date={DateTime.fromISO(String(currentMealDay)).minus({ days: 1 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).minus({ days: 1 }).toISODate()); await calculateMealDay()}} isDisabled={true}></DayCell>
@@ -139,5 +145,6 @@ export function NutritionPage() {
                 }
             </div>
         </ContentLayout>
+        </>
     )
 }
