@@ -32,7 +32,7 @@ interface FormProps extends InputHTMLAttributes<HTMLInputElement>  {
     disabled?: FormElementDisabled
 }
 
-export const InputFull = forwardRef<HTMLInputElement, FormProps>(
+const InputFull = forwardRef<HTMLInputElement, FormProps>(
     ({ width, type, name, required, disabled, error, value, registerAs, ...props }, ref ) => {
 
         const { register, control, getValues } = useFormContext()
@@ -118,3 +118,7 @@ export const InputFull = forwardRef<HTMLInputElement, FormProps>(
         )
     }
 )
+
+InputFull.displayName = 'InputFull'
+
+export { InputFull }

@@ -22,7 +22,7 @@ const DEFAULT_HREF: string = ''
 
 export type IconButtonProps<E extends ElementType> = IconButtonOwnProps<E> & Omit<ComponentProps<E>, keyof IconButtonOwnProps>;
 
-export const IconButton = forwardRef<HTMLDivElement, IconButtonProps<typeof DEFAULT_ELEMENT>>(
+const IconButton = forwardRef<HTMLDivElement, IconButtonProps<typeof DEFAULT_ELEMENT>>(
     (
         { icon, as, label, href, ...props }, ref
     ) => {
@@ -72,3 +72,7 @@ export const IconButton = forwardRef<HTMLDivElement, IconButtonProps<typeof DEFA
         )
     }
 )
+
+IconButton.displayName = 'IconButton'
+
+export { IconButton }

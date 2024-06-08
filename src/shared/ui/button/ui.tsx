@@ -36,7 +36,7 @@ const DEFAULT_SIZE: ButtonSize = 'small'
 
 export type ButtonProps<E extends ElementType> = ButtonOwnProps<E> & Omit<ComponentProps<E>, keyof ButtonOwnProps>;
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps<typeof DEFAULT_ELEMENT>>(
+const Button = forwardRef<HTMLButtonElement, ButtonProps<typeof DEFAULT_ELEMENT>>(
     (
         { children, size, role , priority, disabled, as, preload, width, defaultStyle, ...props }, ref
     ) => {
@@ -48,13 +48,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps<typeof DEFAULT_E
         const prioritySelector: ButtonPriority = priority || DEFAULT_PRIORITY
         const sizeSelector: ButtonSize = size || DEFAULT_SIZE
         
-
-            
-        //Preloading options
-        useEffect(() => {
-            console.log({...props})
-            console.log(baseStyleSelector)
-        }, [])
 
         //Styles configuration
         const buttonStyles: ButtonStyles = [
@@ -74,3 +67,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps<typeof DEFAULT_E
         )
     }
 )
+
+Button.displayName = 'Button'
+
+export { Button }

@@ -111,7 +111,7 @@ export function NutritionPage() {
                 {
                     currentMealDayData && (currentMealDayData.meals.map((meal) => {
                         if(meal.ufis){
-                            return <Meal title={meal.type} time={meal.time}>{ meal.ufis.map((ufi) => {
+                            return <Meal title={meal.type} time={meal.time} key={meal.id}>{ meal.ufis.map((ufi) => {
                                 return <ListItem 
                                         title={ufi.title} 
                                         description={`Масса: ${ufi.weight}  Ккал: ${(ufi.ccal * (ufi.weight/100))}  Б: ${ufi.protein}  Ж: ${ufi.fat}  У: ${ufi.carb}`} 

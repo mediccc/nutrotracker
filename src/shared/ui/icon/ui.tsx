@@ -36,5 +36,5 @@ const Component = forwardRef<HTMLDivElement, IconProps<typeof DEFAULT_ELEMENT>>(
         )
     }
 )
-
+Component.displayName = 'Icon'
 export const Icon = memo(Component)

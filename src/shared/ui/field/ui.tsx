@@ -13,7 +13,7 @@ const DEFAULT_HAS_ERROR: FieldHasError = false
 const DEFAULT_ON_CLEAR: FieldOnClear = () => {}
 const DEFAULT_PRELOAD: FieldPreload = false
 
-export const Field = forwardRef<HTMLInputElement, FieldOwnProps>(
+const Field = forwardRef<HTMLInputElement, FieldOwnProps>(
     ({ width, preload, name, options, type = 'text', ...props }, ref ) => {
 
         //Ситема управления состоянием
@@ -78,3 +78,7 @@ export const Field = forwardRef<HTMLInputElement, FieldOwnProps>(
         )
     }
 )
+
+Field.displayName = 'Field'
+
+export { Field }

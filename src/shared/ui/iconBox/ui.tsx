@@ -16,7 +16,7 @@ const DEFAULT_SIZE: IconBoxOwnProps['size'] = '32px'
 
 export type IconBoxProps<E extends ElementType> = IconBoxOwnProps<E> & Omit<ComponentProps<E>, keyof IconBoxOwnProps>;
 
-export const IconBox = forwardRef<HTMLDivElement, IconBoxProps<typeof DEFAULT_ELEMENT>>(
+const IconBox = forwardRef<HTMLDivElement, IconBoxProps<typeof DEFAULT_ELEMENT>>(
     (
         { as, size, preload, ...props }, ref
     ) => {
@@ -37,3 +37,7 @@ export const IconBox = forwardRef<HTMLDivElement, IconBoxProps<typeof DEFAULT_EL
         )
     }
 )
+
+IconBox.displayName = 'IconBox'
+
+export { IconBox }

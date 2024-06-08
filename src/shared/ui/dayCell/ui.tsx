@@ -16,7 +16,7 @@ const DEFAULT_IS_CURRENT_DAY: boolean = false
 
 export type DayCellProps<E extends ElementType> = DayCellOwnProps<E> & Omit<ComponentProps<E>, keyof  DayCellOwnProps>;
 
-export const DayCell = forwardRef<HTMLDivElement,  DayCellProps<typeof DEFAULT_ELEMENT>>(
+const DayCell = forwardRef<HTMLDivElement,  DayCellProps<typeof DEFAULT_ELEMENT>>(
     (
         { isDisabled, isCurrentDay, date, ...props }, ref
     ) => {
@@ -34,3 +34,7 @@ export const DayCell = forwardRef<HTMLDivElement,  DayCellProps<typeof DEFAULT_E
         )
     }
 )
+
+DayCell.displayName = 'DayCell'
+
+export { DayCell }

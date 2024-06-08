@@ -12,7 +12,7 @@ const DEFAULT_ELEMENT: ElementType = 'h1'
 
 export type TextProps<E extends ElementType> = TextOwnProps<E> & Omit<ComponentProps<E>, keyof TextOwnProps>;
 
-export const Text = forwardRef<HTMLDivElement, TextProps<typeof DEFAULT_ELEMENT>>(
+const Text = forwardRef<HTMLDivElement, TextProps<typeof DEFAULT_ELEMENT>>(
     (
         { children, as, preload, ...props }, ref
     ) => {
@@ -32,3 +32,7 @@ export const Text = forwardRef<HTMLDivElement, TextProps<typeof DEFAULT_ELEMENT>
         )
     }
 )
+
+Text.displayName = 'Text'
+
+export { Text }

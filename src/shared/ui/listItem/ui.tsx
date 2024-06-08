@@ -15,7 +15,7 @@ const DEFAULT_ELEMENT: ElementType = 'div'
 
 export type ListItemProps<E extends ElementType> = ListItemOwnProps<E> & Omit<ComponentProps<E>, keyof  ListItemOwnProps>;
 
-export const ListItem = forwardRef<HTMLDivElement,  ListItemProps<typeof DEFAULT_ELEMENT>>(
+const ListItem = forwardRef<HTMLDivElement,  ListItemProps<typeof DEFAULT_ELEMENT>>(
     (
         { title, description, onButtonClick, ...props }, ref
     ) => {
@@ -31,3 +31,7 @@ export const ListItem = forwardRef<HTMLDivElement,  ListItemProps<typeof DEFAULT
         )
     }
 )
+
+ListItem.displayName = 'ListItem'
+
+export { ListItem }

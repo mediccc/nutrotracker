@@ -14,7 +14,7 @@ const DEFAULT_SIZE: ButtonLabelOwnProps['size'] = 'regular'
 
 export type ButtonLabelProps<E extends ElementType> = ButtonLabelOwnProps<E> & Omit<ComponentProps<E>, keyof ButtonLabelOwnProps>;
 
-export const ButtonLabel = forwardRef<HTMLDivElement, ButtonLabelProps<typeof DEFAULT_ELEMENT>>(
+const ButtonLabel = forwardRef<HTMLDivElement, ButtonLabelProps<typeof DEFAULT_ELEMENT>>(
     (
         { children, as, size, preload, ...props }, ref
     ) => {
@@ -35,3 +35,7 @@ export const ButtonLabel = forwardRef<HTMLDivElement, ButtonLabelProps<typeof DE
         )
     }
 )
+
+ButtonLabel.displayName = 'ButtonLabel'
+
+export { ButtonLabel }

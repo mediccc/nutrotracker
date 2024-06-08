@@ -12,7 +12,7 @@ interface TopBarProps {
 
 const DEFAULT_SIZE: TopBarSize = 'compact'
 
-export const TopBar = forwardRef<HTMLDivElement, TopBarProps>(
+const TopBar = forwardRef<HTMLDivElement, TopBarProps>(
     ({ size, ...props }, ref ) => {
     //const accountIsAuth = useAccountStore((state) => state.isAuth)
     //const accountUser = useAccountStore((state) => state.account)
@@ -31,3 +31,7 @@ export const TopBar = forwardRef<HTMLDivElement, TopBarProps>(
       </div>
     );
 });
+
+TopBar.displayName = 'TopBar'
+
+export { TopBar }

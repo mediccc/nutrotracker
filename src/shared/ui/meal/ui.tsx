@@ -13,7 +13,7 @@ const DEFAULT_ELEMENT: ElementType = 'div'
 
 export type MealProps<E extends ElementType> = MealOwnProps<E> & Omit<ComponentProps<E>, keyof  MealOwnProps>;
 
-export const Meal = forwardRef<HTMLDivElement,  MealProps<typeof DEFAULT_ELEMENT>>(
+const Meal = forwardRef<HTMLDivElement,  MealProps<typeof DEFAULT_ELEMENT>>(
     (
         { children, title, time, ...props }, ref
     ) => {
@@ -42,3 +42,7 @@ export const Meal = forwardRef<HTMLDivElement,  MealProps<typeof DEFAULT_ELEMENT
         )
     }
 )
+
+Meal.displayName = 'Meal'
+
+export { Meal }

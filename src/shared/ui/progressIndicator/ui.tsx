@@ -21,7 +21,7 @@ const DEFAULT_ELEMENT: ElementType = 'div'
 
 export type ProgressIndicatorProps<E extends ElementType> = ProgressIndicatorOwnProps<E> & Omit<ComponentProps<E>, keyof  ProgressIndicatorOwnProps>;
 
-export const ProgressIndicator = forwardRef<HTMLDivElement,  ProgressIndicatorProps<typeof DEFAULT_ELEMENT>>(
+const ProgressIndicator = forwardRef<HTMLDivElement,  ProgressIndicatorProps<typeof DEFAULT_ELEMENT>>(
     (
         { title, value, goal, measure, ...props }, ref
     ) => {
@@ -54,3 +54,7 @@ export const ProgressIndicator = forwardRef<HTMLDivElement,  ProgressIndicatorPr
         )
     }
 )
+
+ProgressIndicator.displayName = 'ProgressIndicator'
+
+export { ProgressIndicator }
