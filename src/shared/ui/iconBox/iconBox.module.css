@@ -1,0 +1,5 @@
+.base {
+    @apply
+    w-[24px]
+    h-[24px]
+}

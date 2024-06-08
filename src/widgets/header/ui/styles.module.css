@@ -1,0 +1,10 @@
+.header {
+    @apply
+    sticky
+    top-0
+    bg-palette-light-100
+    
+    
+    w-full
+    p-5
+}

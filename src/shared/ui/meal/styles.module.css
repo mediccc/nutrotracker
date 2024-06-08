@@ -1,0 +1,26 @@
+.meal {
+    @apply
+    flex
+    flex-col
+    gap-[8px]
+    p-[16px]
+    
+    bg-palette-dark-4
+    rounded-[16px]
+}
+
+.meal__title {
+    @apply
+    text-[14px]
+    leading-[14px]
+    font-medium
+    text-palette-dark-100
+}
+
+.meal__time {
+    @apply
+    text-[14px]
+    leading-[14px]
+    font-medium
+    text-palette-dark-40
+}

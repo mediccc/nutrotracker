@@ -1,0 +1,13 @@
+.content_layout {
+    @apply
+    w-[100%]
+    h-[3000px]
+    pr-[18px]
+    pl-[18px]
+
+    flex
+    flex-col
+    gap-[18px]
+
+    bg-palette-light-100
+}

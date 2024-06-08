@@ -1,0 +1,73 @@
+.input-box {
+    @apply
+    flex
+    flex-col
+    items-start
+    gap-2
+    mb-6
+}
+.input-title {
+    @apply
+    font-ui-input-title
+    text-ui-input-title
+
+    text-palette-dark-80
+}
+.input-message {
+    @apply
+    font-ui-input-message
+    text-ui-input-message
+
+    text-ui-input-text-message-default
+}
+.input-message-error {
+    @apply
+    text-ui-input-text-message-error
+}
+.input-steady {
+    @apply
+    select-none
+    no-underline
+    outline-none
+    border-none
+
+    flex 
+    flex-row
+    justify-between 
+    items-center
+    w-96
+    p-ui-input-normal
+
+    tracking-ui-button-normal
+    rounded-ui-input-normal
+
+    font-ui-input
+    text-ui-input-steady
+
+    cursor-text
+    placeholder-ui-input-text-placeholder
+    bg-ui-input-main-default
+    text-ui-input-text-default
+
+    hover:bg-ui-input-main-hover
+    focus-visible:bg-ui-input-main-focus
+    disabled:bg-ui-input-main-disabled
+    disabled:text-ui-input-text-disabled
+
+    disabled:cursor-not-allowed
+    active:duration-75
+    active:delay-0
+    
+    transition-all
+    ease-in-out
+    duration-300
+}
+.input-error {
+    @apply
+    outline-ui-input-normal
+    outline-offset-ui-input-normal
+}
+.input-fill {
+    @apply
+    w-full
+}

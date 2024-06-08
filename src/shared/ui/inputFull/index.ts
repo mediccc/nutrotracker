@@ -1,0 +1,1 @@
+export { InputFull } from './ui.tsx'

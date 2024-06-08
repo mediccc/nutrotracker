@@ -1,0 +1,23 @@
+@tailwind components;
+
+.base {
+    @apply
+    flex
+    justify-center
+    items-start
+}
+
+/* Size */
+
+.base.regular {
+    @apply
+    pt-[1px]
+    pr-0
+    pl-0
+    pb-[5px]
+}
+
+.base.compact {
+    @apply
+    p-0
+}

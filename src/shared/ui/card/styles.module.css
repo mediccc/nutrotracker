@@ -1,0 +1,11 @@
+.card-steady {
+    @apply
+    flex
+    flex-col
+    p-10
+    m-8
+    bg-ui-card-default
+    shadow-ui-card
+    w-ui-card-normal
+    rounded-button_normal
+}

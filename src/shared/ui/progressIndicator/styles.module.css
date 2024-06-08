@@ -1,0 +1,84 @@
+.progress_indicator {
+    @apply
+    flex
+    flex-col
+    items-center
+    content-center
+    gap-[10px]
+    p-[8px]
+    rounded-[16px]
+    overflow-clip
+
+    hover:bg-palette-dark-4
+    hover:scale-[105%]
+    cursor-pointer
+
+    transition-all
+    ease-in-out
+    duration-150
+}
+
+.indicator_bar {
+    @apply
+    flex
+    flex-col
+    items-end
+    content-end
+    justify-end
+    w-[60px]
+    h-[96px]
+    p-[8px]
+    bg-palette-brand-8
+
+    rounded-[16px]
+
+
+}
+
+.indicator_progress {
+    @apply
+    bottom-[0px]
+    w-full
+    max-h-[96px]
+    bg-palette-brand-100
+    rounded-[8px]
+
+    transition-all
+    ease-in-out
+    duration-700
+}
+
+.title {
+    @apply
+    text-[14px]
+    leading-[14px]
+    font-normal
+
+    text-palette-dark-48
+}
+
+.info {
+    @apply
+    flex
+    flex-col
+    justify-center
+    items-center
+    content-center
+    gap-[6px]
+}
+
+.now {
+    @apply
+    text-[14px]
+    leading-[14px]
+    font-medium
+    text-palette-dark-100
+}
+
+.from {
+    @apply
+    text-[12px]
+    leading-[12px]
+    font-normal
+    text-palette-dark-64
+}

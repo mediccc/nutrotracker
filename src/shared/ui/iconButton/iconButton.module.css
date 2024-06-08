@@ -1,0 +1,73 @@
+.base {
+    @apply
+    w-[48px]
+    h-[48px]
+
+    flex
+    content-center
+    justify-center
+    items-center
+
+    cursor-pointer
+
+}
+
+.state_container {
+    @apply
+    w-[40px]
+    h-[40px]
+
+    flex
+    content-center
+    justify-center
+    items-center
+    rounded-[100%]
+
+    select-none
+
+    text-palette-brand-100
+    hover:bg-palette-dark-8
+    focus:bg-palette-dark-16
+    active:bg-palette-dark-16
+
+    transition-all
+    ease-in-out
+    duration-150
+}
+
+.base_menu {
+    @apply
+    w-[96px]
+    h-[72px]
+}
+
+.state_container_menu {
+    @apply
+    w-[100%]
+    h-[100%]
+
+    flex
+    flex-col
+    content-center
+    justify-center
+    items-center
+    rounded-[16px]
+    gap-[0px]
+
+    select-none
+
+    text-palette-dark-100
+    hover:bg-palette-dark-8
+    focus:bg-palette-dark-16
+    active:bg-palette-dark-16
+
+    transition-all
+    ease-in-out
+    duration-150
+}
+
+.label {
+    @apply
+    text-[14px]
+    text-palette-dark-100
+}

@@ -1,0 +1,107 @@
+@tailwind components;
+
+
+    .base {
+        @apply 
+        select-none
+        no-underline
+        outline-none
+        gap-[8px]
+    
+        inline-flex 
+        
+        justify-center 
+        items-center
+    
+        /*Вынести в normal*/
+        tracking-ui-button-normal
+        rounded-ui-button-normal
+
+        cursor-pointer
+
+        disabled:cursor-not-allowed
+        active:duration-75
+        active:delay-0
+        
+        transition-all
+        ease-in-out
+        duration-150
+
+        
+    }
+
+    /* Width */
+    .base.stretched {
+        @apply
+        min-w-full
+    }
+
+    .base.tight {
+        @apply
+        min-w-min
+    }
+
+    /* Role */
+    .base.primary {
+        @apply 
+        border-none
+
+        bg-ui-bg-main-full-regular
+        text-palette-light-100
+
+        hover:bg-ui-bg-main-full-hover
+        active:bg-ui-bg-main-full-active
+        focus-visible:bg-ui-bg-focus-full
+        focus-visible:text-ui-text-focus-full_onColor
+        disabled:bg-ui-bg-main-full-disabled
+        disabled:text-ui-button-text-primary-disabled
+    }
+    .base.secondary {
+        @apply 
+        border-none
+
+        bg-ui-bg-main-mild-regular
+        text-palette-brand-100
+        fill-palette-brand-100
+
+        hover:bg-ui-bg-main-mild-hover
+        active:bg-ui-bg-main-mild-active
+        focus-visible:bg-ui-bg-focus-mild
+        focus-visible:text-ui-text-focus-full
+        disabled:bg-ui-bg-main-mild-disabled
+        disabled:text-ui-button-text-primary-disabled
+    }
+    
+    .base.outline {
+        @apply
+        outline-[3px]
+        outline-offset-[-3px]
+        bg-ui-transparent
+        border-none
+
+        outline-ui-button-main-secondary-default
+        text-ui-button-main-secondary-default
+
+        hover:outline-ui-button-main-secondary-hover
+        hover:text-ui-button-main-secondary-hover
+        active:outline-ui-button-main-secondary-active
+        active:text-ui-button-main-secondary-active
+        focus-visible:outline-ui-button-main-secondary-focus
+        focus-visible:text-ui-button-main-secondary-focus
+        disabled:outline-ui-button-main-secondary-disabled
+        disabled:text-ui-button-main-secondary-disabled
+    }
+
+    /* Size */
+    .base.normal {
+        @apply 
+        p-ui-button-normal
+        text-ui-button-normal
+        font-ui-button-normal
+    }
+    .base.small {
+        @apply
+        p-ui-button-small
+        text-ui-button-small
+        font-ui-button-small
+    }

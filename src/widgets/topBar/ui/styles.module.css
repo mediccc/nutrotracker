@@ -1,0 +1,54 @@
+.top_bar {
+    @apply
+    relative
+    flex
+    flex-col
+    gap-[20px]
+    top-[0px]
+    bg-palette-light-100
+    
+    w-full
+    pb-[16px]
+    pt-[16px]
+}
+
+.top_bar_compact {
+    @apply
+    flex-row
+    items-center
+    gap-[0px]
+}
+
+.action_container {
+    @apply
+    flex
+    flex-row
+    justify-between
+    content-start
+
+    pl-[6px]
+    pr-[6px]
+}
+
+.title_container {
+    @apply
+    pr-[18px]
+    pl-[18px]
+
+    text-palette-dark-100
+    font-medium
+    text-[32px]
+    leading-[32px]
+}
+
+.title_container_compact {
+    @apply
+    w-fit
+
+    pr-[0px]
+    pl-[0px]
+    pb-[2px]
+    
+    text-[20px]
+    leading-[20px]
+}

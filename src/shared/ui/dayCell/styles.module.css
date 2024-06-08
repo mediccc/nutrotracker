@@ -1,0 +1,53 @@
+.day_cell {
+    @apply
+    w-full
+    h-[48px]
+    flex
+    flex-col
+    justify-center
+    items-center
+    content-center
+    gap-[4px]
+
+    cursor-pointer
+
+    bg-ui-card-default
+    rounded-[12px]
+
+    text-palette-dark-100
+
+    hover:opacity-[72%]
+
+    transition-all
+    ease-in-out
+    duration-150
+}
+
+.day_cell.disabled {
+    @apply
+    opacity-[64%]
+
+    hover:opacity-[48%]
+}
+
+.day_cell-current {
+    @apply
+    bg-palette-brand-100
+    text-palette-light-100
+
+    hover:bg-palette-brand-80
+}
+
+.date {
+    @apply
+    text-[14px]
+    leading-[14px]
+    font-medium
+}
+
+.day {
+    @apply
+    text-[12px]
+    leading-[12px]
+    font-normal
+}

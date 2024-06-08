@@ -1,0 +1,6 @@
+.text-steady {
+    @apply
+    leading-[16px]
+    font-medium
+    text-palette-dark-80
+}
