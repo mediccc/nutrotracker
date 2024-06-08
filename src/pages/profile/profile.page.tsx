@@ -29,7 +29,7 @@ export function ProfilePage() {
         <ContentLayout>
             {
                 accountIsAuth && (
-                    <div className='flex flex-row w-auto rounded-[16px] p-[16px] gap-[24px] bg-palette-dark-4'>
+                    <div className='flex flex-col w-auto rounded-[16px] p-[16px] gap-[24px] bg-palette-dark-4'>
                         <div>Авторизован.</div>
                         <div className='flex w-auto'>{`EMAIL: ${accountUser.email}`}</div>
                         <div className='flex w-auto'>{`ID: ${accountUser.id}`}</div>
