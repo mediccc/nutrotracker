@@ -14,12 +14,15 @@
 
 .base_filled {
     @apply
+    rounded-[100%]
     text-palette-light-100
     bg-palette-brand-100
 }
 
 .base_transparent {
     @apply
+    w-[48px]
+    h-[48px]
 }
 
 .base_compact {

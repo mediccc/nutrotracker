@@ -84,8 +84,8 @@ export function NutritionPage() {
   return (
         <>
         <TopBar size='compact' title='Питание' icon='nutrition'></TopBar>
-        <div className="fixed bottom-[108px] right-[48px] w-auto h-auto">
-            <IconButton icon='add' size='medium' appearance='filled'></IconButton>
+        <div className="fixed bottom-[96px] right-[24px] w-auto h-auto">
+            <IconButton icon='add' size='medium' appearance='filled' onClick={() => router.push('/nutrition/createUfi')}></IconButton>
         </div>
         <ContentLayout>
             <div className={`flex flex-row h-fit w-full max-w-[640px] gap-[8px] ${(isMenuLoading || isCalculate) && 'animate-pulse'}`}>
