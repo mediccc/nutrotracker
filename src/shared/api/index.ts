@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-export const BASE_API_URL = 'http://localhost:7000'
+export const BASE_API_URL = 'https://neurite-backend.onrender.com'
 
 const $api = axios.create({
     withCredentials: true,
