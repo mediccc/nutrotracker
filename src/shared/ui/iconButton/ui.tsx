@@ -3,72 +3,57 @@ import styles from './iconButton.module.css';
 import { Icon } from '../icon';
 import Link from 'next/link';
 
-type IconSize = '32px' | '24px'
+type IconButtonSize = 'compact' | 'medium'
+type IconButtonAppearance = 'transparent' | 'filled'
 
 interface IconButtonOwnProps<E extends ElementType = ElementType> {
     icon: string
-    size?: IconSize
+    appearance?: IconButtonAppearance
+    size?: IconButtonSize
     preload?: boolean
     label?: string
-    href?: string
     as?: E
 }
 
 //Параметры по дефолту
 const DEFAULT_ELEMENT: ElementType = 'div'
-const DEFAULT_SIZE: IconButtonOwnProps['size'] = '32px'
+const DEFAULT_SIZE: IconButtonOwnProps['size'] = 'compact'
 const DEFAULT_ICON: IconButtonOwnProps['icon'] = 'add'
-const DEFAULT_HREF: string = ''
+const DEFAULT_APPEARANCE: IconButtonAppearance = 'transparent'
 
 export type IconButtonProps<E extends ElementType> = IconButtonOwnProps<E> & Omit<ComponentProps<E>, keyof IconButtonOwnProps>;
 
 const IconButton = forwardRef<HTMLDivElement, IconButtonProps<typeof DEFAULT_ELEMENT>>(
     (
-        { icon, as, label, href, ...props }, ref
+        { icon, as, label, appearance, size, ...props }, ref
     ) => {
 
         //Выбор парметров из дефолтных или указанных
         const Element: ElementType = as || DEFAULT_ELEMENT
         //const sizeSelector: IconBoxOwnProps['size'] = size || DEFAULT_SIZE
         const iconSelector: IconButtonOwnProps['icon'] = icon || DEFAULT_ICON
-        const hrefSelector: string = href || DEFAULT_HREF
+        const appearanceSelector: IconButtonAppearance = appearance || DEFAULT_APPEARANCE
+        const sizeSelector: IconButtonSize = size || DEFAULT_SIZE
+        //const hrefSelector: string = href || DEFAULT_HREF
         //дописать прелоадинг
 
 
-        const iconButtonStyles = `${styles.base} ${label && styles.base_menu}`
-        const stateContainerStyles = `${styles.state_container} ${label && styles.state_container_menu}`
+        const iconButtonStyles = `${styles.base} ${styles[`base_${appearanceSelector}`]} ${styles[`base_${sizeSelector}`]} ${label && styles.base_menu} ${styles}`
+        const stateContainerStyles = `${styles[`state_container_${appearanceSelector}`]} ${label && styles.state_container_menu}`
 
         //const iconBoxStyles = `${styles.base}`;
 
         return(
-            <>
-            {href && (
-                <Link href={`/${hrefSelector}`}>
-                    <Element className={iconButtonStyles} {...props}>
-                            <div className={stateContainerStyles}>
-                                <span className="material-symbols-rounded">
-                                    {iconSelector}
-                                </span>
-                                { label && (
-                                    <span className={styles.label}>{label}</span>
-                                )}
-                            </div>
-                    </Element>
-                </Link>
-            )}
-            {!href && (
-                <Element className={iconButtonStyles} {...props}>
-                        <div className={stateContainerStyles}>
-                            <span className="material-symbols-rounded">
-                                {iconSelector}
-                            </span>
-                            { label && (
-                                <span className={styles.label}>{label}</span>
-                            )}
-                        </div>
-                </Element>
-            )}
-            </>
+            <Element className={iconButtonStyles} {...props}>
+                    <div className={stateContainerStyles}>
+                        <span className="material-symbols-rounded">
+                            {iconSelector}
+                        </span>
+                        { label && (
+                            <span className={styles.label}>{label}</span>
+                        )}
+                    </div>
+            </Element>
         )
     }
 )

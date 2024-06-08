@@ -12,8 +12,8 @@ export const BottomBar = () => {
     return (
       <div className={styles.bottom_bar}>
             <IconButton icon='monitoring' label='здоровье' onClick={() => router.push('/')}></IconButton>
-            <IconButton icon='nutrition' label='питание' href='nutrition'></IconButton>
-            <IconButton icon='account_circle' label='профиль' href='profile'></IconButton>
+            <IconButton icon='nutrition' label='питание' onClick={() => router.push('/nutrition')}></IconButton>
+            <IconButton icon='account_circle' label='профиль' onClick={() => router.push('/profile')}></IconButton>
       </div>
     );
 };

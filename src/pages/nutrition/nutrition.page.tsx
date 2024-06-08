@@ -17,6 +17,7 @@ import { useUfiStore } from '@/entities/ufi/store/ufi.store';
 import MealDayService from '@/entities/meal-day/service/meal-day.service';
 import { MealDay } from '@/entities/meal-day/models/meal-day';
 import { TopBar } from '@/widgets/topBar';
+import { useRouter } from 'next/navigation';
 
 export function NutritionPage() {
 
@@ -47,7 +48,7 @@ export function NutritionPage() {
     //const [dateData, setDayData] = useState<string>('')
     //useMealDayStore.getState().setCurrentMealDay(currentMealDay)
 
-    
+    const router = useRouter()
 
     useEffect(() => {
         useAccountStore.persist.rehydrate()
@@ -83,8 +84,8 @@ export function NutritionPage() {
   return (
         <>
         <TopBar size='compact' title='Питание' icon='nutrition'></TopBar>
-        <div className="fixed bottom-[164px] right-[72px] w-auto h-auto">
-            <IconButton icon='add'></IconButton>
+        <div className="fixed bottom-[108px] right-[48px] w-auto h-auto">
+            <IconButton icon='add' size='medium' appearance='filled'></IconButton>
         </div>
         <ContentLayout>
             <div className={`flex flex-row h-fit w-full max-w-[640px] gap-[8px] ${(isMenuLoading || isCalculate) && 'animate-pulse'}`}>
@@ -110,7 +111,7 @@ export function NutritionPage() {
             </div>
             <div className={`flex w-full max-w-[640px] h-fit flex-col gap-[24px] p-[20px] rounded-[16px] bg-ui-card-default border-[2px] border-palette-dark-8 ${(isMenuLoading || isCalculate) && 'animate-pulse'}`}>
                 <Text>Меню дня</Text>
-                <IconButton icon='add' href='nutrition/createUfi'></IconButton>
+                <IconButton icon='add' onClick={() => router.push('/')}></IconButton>
                 { isMenuLoading && (
                     <div className="animate-pulse">Обновление меню...</div>
                 )}

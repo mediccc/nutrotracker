@@ -12,7 +12,30 @@
 
 }
 
-.state_container {
+.base_filled {
+    @apply
+    text-palette-light-100
+    bg-palette-brand-100
+}
+
+.base_transparent {
+    @apply
+}
+
+.base_compact {
+    @apply
+    w-[48px]
+    h-[48px]
+
+}
+
+.base_medium {
+    @apply
+    w-[64px]
+    h-[64px]
+}
+
+.state_container_transparent {
     @apply
     w-[40px]
     h-[40px]
@@ -26,6 +49,29 @@
     select-none
 
     text-palette-brand-100
+    hover:bg-palette-dark-8
+    focus:bg-palette-dark-16
+    active:bg-palette-dark-16
+
+    transition-all
+    ease-in-out
+    duration-150
+}
+
+.state_container_filled {
+    @apply
+    w-[64px]
+    h-[64px]
+
+    flex
+    content-center
+    justify-center
+    items-center
+    rounded-[100%]
+
+    select-none
+
+    text-palette-light-100
     hover:bg-palette-dark-8
     focus:bg-palette-dark-16
     active:bg-palette-dark-16
