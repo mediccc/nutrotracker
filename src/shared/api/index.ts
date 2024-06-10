@@ -4,7 +4,7 @@ import { AuthResponse } from '@/entities/account/models/auth-response';
 
 const BASE_DEV_URL = 'http://localhost:7000'
 const BASE_PROD_URL = 'https://neurite-backend.onrender.com'
-export const BASE_API_URL = BASE_DEV_URL
+export const BASE_API_URL = BASE_PROD_URL
 
 const $api = axios.create({
     withCredentials: true,
