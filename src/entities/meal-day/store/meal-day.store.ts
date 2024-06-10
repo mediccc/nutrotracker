@@ -5,6 +5,19 @@ import { BASE_API_URL } from '@/shared/api';
 import { MealDay } from '../models/meal-day.ts';
 import MealDayService from '../service/meal-day.service.ts';
 import { DateTime } from 'luxon';
+import { Meal } from '../models/meal.ts';
+
+interface DefaultMeal {
+    type: string
+    time: string
+}
+
+interface SelectedMeal {
+    id: number | null
+    type: string | null
+    time: string | null
+    authorId: number | null
+}
 
 export type State = {
     currentMealDay: string | null
@@ -15,13 +28,16 @@ export type State = {
     currentMealDayProtein: number
     currentMealDayFat: number
     currentMealDayCarb: number
+    selectedMeal: SelectedMeal | null
+    settingsDefaultMealSchema: DefaultMeal[]
 }
 
 export type Actions = {
     createMealDay: (userId: number, isCompleted: boolean, date: string) => void
-    getMealDayByDate: (date: string | null) => void
-    setCurrentMealDay: (day: string | null) => void
+    getMealDayByDate: (date: string | null, userId: number) => void
+    setCurrentMealDay: (day: string | null, userId: number) => void
     calculateMealDay: () => void
+    setSelectedMeal: (meal: SelectedMeal) => void
 }
 
 export const useMealDayStore = create<State & Actions>()(
@@ -36,12 +52,24 @@ export const useMealDayStore = create<State & Actions>()(
                 ufis: [],
                 meals: []
             },
+            settingsDefaultMealSchema: [
+                { type: 'Завтрак', time: '8:00'},
+                { type: 'Обед', time: '13:00'},
+                { type: 'Ужин', time: '19:00'},
+            ],
             isLoading: false,
             isCalculate: false,
             currentMealDayCcal: 0,
             currentMealDayProtein: 0,
             currentMealDayFat: 0,
             currentMealDayCarb: 0,
+            selectedMeal: null,
+            setSelectedMeal: async (meal: SelectedMeal | null) => {
+                set({
+                    selectedMeal: meal
+                })
+                console.log('Отработало selectedMeal')
+            },
             calculateMealDay: async () => {
                 set({ isCalculate: true})
                 try {
@@ -79,9 +107,9 @@ export const useMealDayStore = create<State & Actions>()(
                 }
 
             },
-            getMealDayByDate: async (date: string | null) => {
+            getMealDayByDate: async (date: string | null, userId: number | null) => {
                 try {
-                    const response = await MealDayService.getMealDayByDate(String(date))
+                    const response = await MealDayService.getMealDayByDate(String(date), Number(userId))
                     console.log(response)
                     set(() => ({
                         currentMealDayData: response.data.mealDay
@@ -91,11 +119,80 @@ export const useMealDayStore = create<State & Actions>()(
                     console.log('Ошибка получения MealDayByDate.')
                 }
             },
-            setCurrentMealDay: async (date: string | null) => {
+            setCurrentMealDay: async (date: string | null, userId: number | null) => {
                 set({ isLoading: true })
                 try {
-                    const response = await MealDayService.getMealDayByDate(String(date))
+                    const response = await MealDayService.getMealDayByDate(String(date), Number(userId))
+                    const settingsDefaultMealSchema = await useMealDayStore.getState().settingsDefaultMealSchema
+                    const operatingSchema = settingsDefaultMealSchema
+                    console.log('НАЧАЛО ЦИКЛА____________________________________')
+                    console.log('OPEARTING SCHEMA:')
+                    console.log(operatingSchema)
+                    console.log('________________________________________')
+                    let newSchema: DefaultMeal[] = []
+                    let operateArray: DefaultMeal[] = []
                     //console.log(response.data)
+                    //РАССЧЕТ ТОГО, КАКИЕ ПРИЕМЫ ПИЩИ НУЖНО ОТОБРАЗИТЬ
+                    if(response.data.mealDay){
+                        if(response.data.mealDay.meals.length){
+                            //ЕСЛИ ЕСТЬ ПРИЕМЫ ПИЩИ
+                            console.log('ЕСТЬ ПРИЕМЫ ПИЩИ')
+                            await response.data.mealDay.meals.map(async (meal) => {
+                                //const settingsDefaultMealSchema = await useMealDayStore.getState().settingsDefaultMealSchema
+                                //console.log('settingsDefaultMealSchema:')
+                                //console.log(settingsDefaultMealSchema)
+                                await operatingSchema.map(async (mealDefault) => {
+                                    if(mealDefault.type === meal.type){
+                                        console.log('Совпадение.')
+                                        //Совпадение
+                                        const handleRemove = async (type: string) => {
+                                            //console.log(type)
+                                            //console.log(operatingSchema)
+                                            newSchema = operatingSchema.filter(function(defMeal) { return defMeal.type !== type })
+                                            //console.log('NEW SCHEMA IS:')
+                                            //console.log(newSchema)
+                                            //console.log('______________________')
+                                        };
+
+                                        //console.log('MEAL TYPE IS ' + meal.type)
+
+                                        await handleRemove(meal.type)
+
+                                    } 
+
+                                    
+                                })
+                            })
+                            console.log('ИТОГОВАЯ СХЕМА: ')
+                            console.log(newSchema)
+                            set({
+                                settingsDefaultMealSchema: newSchema
+                            })
+                            
+                        }
+                        if(!response.data.mealDay.meals.length){
+                            console.log('НЕТ ПРИЕМОВ ПИЩИ? ')
+                            const newSchema = [
+                                { type: 'Завтрак', time: '8:00'},
+                                { type: 'Обед', time: '13:00'},
+                                { type: 'Ужин', time: '19:00'},
+                            ]
+                            set({
+                                settingsDefaultMealSchema: newSchema
+                            })
+                        }
+                    }
+                    if(!response.data.mealDay){
+                        console.log('НЕТ MEAL DAY ')
+                        const newSchema = [
+                            { type: 'Завтрак', time: '8:00'},
+                            { type: 'Обед', time: '13:00'},
+                            { type: 'Ужин', time: '19:00'},
+                        ]
+                        set({
+                            settingsDefaultMealSchema: newSchema
+                        })
+                    }
                     set(() => ({
                         currentMealDay: date,
                         currentMealDayData: response.data.mealDay

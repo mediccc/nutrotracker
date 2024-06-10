@@ -2,7 +2,7 @@
 
 import { Button, Card } from '@/shared/ui'
 import { useAccountStore } from '@/entities/account/store/account.store';
-import { useEffect, useState } from 'react';
+import { ChangeEventHandler, useEffect, useState } from 'react';
 import { ContentLayout } from '@/widgets/layouts';
 import { ProgressIndicator } from '@/shared/ui/progressIndicator';
 import { Text } from '@/shared/ui/text';
@@ -10,11 +10,12 @@ import { DayCell } from '@/shared/ui/dayCell';
 import { DateTime } from 'luxon';
 import { IconButton } from '@/shared/ui/iconButton';
 import { useMealDayStore } from '@/entities/meal-day/store/meal-day.store';
-import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { ChangeHandler, Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { InputFull } from '@/shared/ui/inputFull';
 import Link from 'next/link';
 import { useUfiStore } from '@/entities/ufi/store/ufi.store';
 import { useRouter } from 'next/navigation';
+import { TopBar } from '@/widgets/topBar';
 
 interface CreateUfiForm {
     type: string
@@ -43,6 +44,8 @@ export function CreateUfiPage() {
     const currentMealDayData = useMealDayStore((state) => state.currentMealDayData)
     const calculateMealDay = useMealDayStore((state) => state.calculateMealDay)
     const isLoadingUfi = useUfiStore((state) => state.isLoading)
+    const searchedUfi = useUfiStore((state) => state.searchedUfi)
+    const searchUfi = useUfiStore((state) => state.getAllUfiByTitle)
 
     const methodsCreateUfi = useForm<CreateUfiForm>({
         defaultValues: {
@@ -80,7 +83,7 @@ export function CreateUfiPage() {
         console.log('[CREATE UFI DATA]:')
         console.log(createUfiData)
         console.log('_____________________________')
-        await setCurrentMealDay(currentMealDay)
+        await setCurrentMealDay(currentMealDay, accountUser.id)
         await calculateMealDay()
         router.push('/nutrition')
     }
@@ -92,12 +95,14 @@ export function CreateUfiPage() {
   }, [])
 
   return (
+        <>
+        <TopBar title='Создание продукта' size="normal"></TopBar>
         <ContentLayout>
             <FormProvider {...methodsCreateUfi}>
                 <form onSubmit={methodsCreateUfi.handleSubmit(submitCreateUfi)}>
                     <Controller name='title' control={methodsCreateUfi.control} render={({ field: { value }, fieldState: { error }}) => 
                         <InputFull name='Название' type='text' width='stretched' placeholder='Название' error={error} value={value} registerAs='title'
-                            onFocus={() => console.log('true')}
+                            onFocus={() => console.log('true')} 
                         />
                         }
                     />
@@ -139,5 +144,6 @@ export function CreateUfiPage() {
                 </form>
             </FormProvider>
         </ContentLayout>
+        </>
     )
 }

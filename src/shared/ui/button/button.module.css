@@ -38,7 +38,11 @@
 
     .base.tight {
         @apply
-        min-w-min
+        max-w-fit
+        pl-[14px]
+        pr-[14px]
+        pt-[2px]
+        pb-[2px]
     }
 
     /* Role */

@@ -15,8 +15,11 @@ import { useMealDayStore } from '@/entities/meal-day/store/meal-day.store';
 import { ContentLayout } from '@/widgets/layouts';
 import { ProgressIndicator } from '@/shared/ui/progressIndicator';
 import { TopBar } from '@/widgets/topBar';
+import { useRouter } from 'next/navigation';
 
 export function ProfilePage() {
+
+    const router = useRouter()
 
   const accountIsAuth = useAccountStore((state) => state.isAuth)
   const accountUser = useAccountStore((state) => state.account)
@@ -37,7 +40,7 @@ export function ProfilePage() {
                             <div className='flex w-auto'>{`EMAIL: ${accountUser.email}`}</div>
                             <div className='flex w-auto'>{`ID: ${accountUser.id}`}</div>
                             <Button size='small' type='submit' width='tight' priority='secondary' 
-                                onClick={() => logoutAccount()}>
+                                onClick={() => {logoutAccount(); router.push('/')}}>
                                 Выйти из аккаунта
                             </Button>
                         </div>

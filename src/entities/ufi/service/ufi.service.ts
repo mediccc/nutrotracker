@@ -2,6 +2,7 @@ import $api from "@/shared/api";
 import { AxiosResponse } from "axios";
 import { UfiResponse } from "../models/ufi-response";
 import { RemoveUfiResponse } from "../models/remove-ufi-response";
+import { Ufi } from "@/entities/account/models/ufi";
 export default class UfiService {
     
     static async createUfi(
@@ -47,9 +48,26 @@ export default class UfiService {
         })
     }
 
-    //static async getAllUfiByMealDayId(mealDayId: number): Promise<AxiosResponse<any>> {
-        //return $api.get<Ufi[]>(`/ufi/getAllUfiByMealDayId/${mealDayId}`)
+    static async getAllUfiByTitle(title: string): Promise<AxiosResponse<any>> {
+        return $api.get<Ufi[]>(`/ufi/search/${title}`)
+    }
 
-    //}
+    static async addUfiToMeal(
+        ufiId: number | null,
+        mealId: number | null ,
+        userId: number | null,
+        date: string | null,
+        time: string | null,
+        type: string | null,
+    ): Promise<AxiosResponse<UfiResponse>> {
+        return $api.post<UfiResponse>('/ufi/addUfiToMeal', { 
+            ufiId,
+            mealId,
+            userId,
+            date,
+            time,
+            type
+        })
+    }
 
 }

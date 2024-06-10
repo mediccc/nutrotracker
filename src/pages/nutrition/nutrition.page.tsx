@@ -18,11 +18,17 @@ import MealDayService from '@/entities/meal-day/service/meal-day.service';
 import { MealDay } from '@/entities/meal-day/models/meal-day';
 import { TopBar } from '@/widgets/topBar';
 import { useRouter } from 'next/navigation';
+import { title } from 'process';
+
+interface DefaultMeal {
+    type: string
+    time: string
+}
 
 export function NutritionPage() {
 
     //const accountIsAuth = useAccountStore((state) => state.isAuth)
-    //const accountUser = useAccountStore((state) => state.account)
+    const accountUser = useAccountStore((state) => state.account)
     //const logoutAccount = useAccountStore((state) => state.logout)
     const setCurrentMealDay = useMealDayStore((state) => state.setCurrentMealDay)
     const currentMealDay = useMealDayStore((state) => state.currentMealDay)
@@ -45,8 +51,14 @@ export function NutritionPage() {
 
     //const [currentDayData, setCurrentDayData] = useState<MealDay | undefined>()
 
+    const defaultMealSchema = useMealDayStore((state) => state.settingsDefaultMealSchema)
+    const selectedMeal = useMealDayStore((state) => state.selectedMeal)
+    const setSelectedMeal = useMealDayStore((state) => state.setSelectedMeal)
     //const [dateData, setDayData] = useState<string>('')
     //useMealDayStore.getState().setCurrentMealDay(currentMealDay)
+    
+
+    //const [currentMealSchema, setCurrentMealSchema] = useState(defaultMealsSchema)
 
     const router = useRouter()
 
@@ -58,7 +70,7 @@ export function NutritionPage() {
         //console.log('rerender')
 
         const pageStart = async () => {
-            await setCurrentMealDay(currentMealDay)
+            await setCurrentMealDay(currentMealDay, accountUser.id)
             await calculateMealDay()
         }
 
@@ -70,7 +82,7 @@ export function NutritionPage() {
 
         await removeUfiFromMeal(ufiId, mealId)
         //console.log(removedUfi)
-        await setCurrentMealDay(currentMealDay)
+        await setCurrentMealDay(currentMealDay, accountUser.id)
         await calculateMealDay()
 
         //if(currentMealDayData){
@@ -79,22 +91,26 @@ export function NutritionPage() {
         //}
     }
 
+    const AddFood = (ufiId: number, mealId: number, userId: number) => {
+
+    }
+
 
 
   return (
         <>
         <TopBar size='compact' title='Питание' icon='nutrition'></TopBar>
         <div className="fixed bottom-[112px] right-[24px] w-auto h-auto">
-            <IconButton icon='add' size='medium' appearance='filled' onClick={() => router.push('/nutrition/createUfi')}></IconButton>
+            <IconButton icon='add' size='medium' appearance='filled' onClick={() => router.push('/nutrition/addFood')}></IconButton>
         </div>
         <ContentLayout>
             <div className={`flex flex-row h-fit w-full max-w-[640px] gap-[8px] ${(isMenuLoading || isCalculate) && 'animate-pulse'}`}>
-                <DayCell date={DateTime.fromISO(String(currentMealDay)).minus({ days: 1 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).minus({ days: 1 }).toISODate()); await calculateMealDay()}} isDisabled={true}></DayCell>
-                <DayCell date={currentMealDay} onClick={async () => await calculateMealDay()} isCurrentDay={true}></DayCell>
-                <DayCell date={DateTime.fromISO(String(currentMealDay)).plus({ days: 1 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).plus({ days: 1 }).toISODate()); await calculateMealDay()}}></DayCell>
-                <DayCell date={DateTime.fromISO(String(currentMealDay)).plus({ days: 2 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).plus({ days: 2 }).toISODate()); await calculateMealDay()}}></DayCell>
-                <DayCell date={DateTime.fromISO(String(currentMealDay)).plus({ days: 3 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).plus({ days: 3 }).toISODate()); await calculateMealDay()}}></DayCell>
-                <DayCell date={DateTime.fromISO(String(currentMealDay)).plus({ days: 4 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).plus({ days: 4 }).toISODate()); await calculateMealDay()}}></DayCell>
+                <DayCell date={DateTime.fromISO(String(currentMealDay)).minus({ days: 1 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).minus({ days: 1 }).toISODate(), accountUser.id); await calculateMealDay()}} isDisabled={true}></DayCell>
+                <DayCell date={currentMealDay} onClick={async () => {await calculateMealDay()}} isCurrentDay={true}></DayCell>
+                <DayCell date={DateTime.fromISO(String(currentMealDay)).plus({ days: 1 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).plus({ days: 1 }).toISODate(), accountUser.id); await calculateMealDay()}}></DayCell>
+                <DayCell date={DateTime.fromISO(String(currentMealDay)).plus({ days: 2 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).plus({ days: 2 }).toISODate(), accountUser.id); await calculateMealDay()}}></DayCell>
+                <DayCell date={DateTime.fromISO(String(currentMealDay)).plus({ days: 3 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).plus({ days: 3 }).toISODate(), accountUser.id); await calculateMealDay()}}></DayCell>
+                <DayCell date={DateTime.fromISO(String(currentMealDay)).plus({ days: 4 }).toISODate()} onClick={async () => {await setCurrentMealDay(DateTime.fromISO(String(currentMealDay)).plus({ days: 4 }).toISODate(), accountUser.id); await calculateMealDay()}}></DayCell>
                 <IconButton icon='date_range'></IconButton>
             </div>
             <div className="flex w-full max-w-[640px] h-fit flex-col gap-[24px] p-[20px] rounded-[16px] bg-ui-card-default border-[2px] border-palette-dark-8">
@@ -114,8 +130,10 @@ export function NutritionPage() {
                 { isMenuLoading && (
                     <div className="animate-pulse">Обновление меню...</div>
                 )}
+                
                 {
                     currentMealDayData && (currentMealDayData.meals.map((meal) => {
+                        
                         if(meal.ufis){
                             return <Meal title={meal.type} time={meal.time} key={meal.id}>{ meal.ufis.map((ufi) => {
                                 return <ListItem 
@@ -129,19 +147,13 @@ export function NutritionPage() {
                     }))
                 }
                 {
-                    (!currentMealDayData || !currentMealDayData.meals.length) && (
-                        <>
-                            <Meal title='Завтрак' time='9:00'>
-                                <div>Нет приемов пищи</div>
-                            </Meal>
-                            <Meal title='Обед' time='13:00'>
-                                <div>Нет приемов пищи</div>
-                            </Meal>
-                            <Meal title='Ужин' time='18:00'>
-                                <div>Нет приемов пищи</div>
-                            </Meal>
-                        </>
-                    )
+                    defaultMealSchema.map((meal) => {
+                        return <Meal title={meal.type} time={meal.time} key={Math.random()}>
+                            Нет приемов пищи
+                            <Button size="medium" width="tight" priority="secondary"
+                            onClick={ async () => {await setSelectedMeal({ type: meal.type, time: meal.time, id: null, authorId: accountUser.id }); router.push('/nutrition/addFood')}}>Добавить</Button>
+                        </Meal>
+                    })
                 }
             </div>
         </ContentLayout>

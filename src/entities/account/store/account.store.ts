@@ -7,6 +7,7 @@ import axios from 'axios';
 import { AuthResponse } from '../models/auth-response';
 import { BASE_API_URL } from '@/shared/api';
 
+
 export type State = {
     account: User
     isAuth: boolean
@@ -20,6 +21,7 @@ export type Actions = {
     registration: (email: string, password: string) => void
     logout: () => void
     checkAuth: () => void
+    
 }
 
 export const useAccountStore = create<State & Actions>()(
@@ -80,6 +82,7 @@ export const useAccountStore = create<State & Actions>()(
                         isAuth: true
                     }))
                 } catch(e) {
+                    console.log(e)
                     console.log('Ошибка checkAuth.')
                 }
             }

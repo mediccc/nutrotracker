@@ -13,11 +13,15 @@ export default class MealDayService {
         { 
             userId, 
             isCompleted,
-            date
+            date,
         })
     }
 
-    static async getMealDayByDate(date: string): Promise<AxiosResponse<MealDayResponse>> {
-        return $api.get<MealDayResponse>(`/meal-days/date/${date}`)
+    static async getMealDayByDate(date: string, userId: number): Promise<AxiosResponse<MealDayResponse>> {
+        return $api.post<MealDayResponse>(`/meal-days/getMealDayByDate`, 
+        {
+            date,
+            userId
+        })
     }
 }
