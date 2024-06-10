@@ -35,7 +35,6 @@ export function HomePage() {
   const isLoadingAuth = useAccountStore((state) => state.isLoadingAuth)
   const registerAccount = useAccountStore((state) => state.registration)
   const loginAccount = useAccountStore((state) => state.login)
-  //const accountUser = useAccountStore((state) => state.account)
 
   const [isLogin, setIsLogin] = useState<boolean>(false)
 
