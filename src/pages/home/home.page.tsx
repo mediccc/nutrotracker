@@ -32,6 +32,7 @@ const ValidationSchema = object({
 export function HomePage() {
 
   const accountIsAuth = useAccountStore((state) => state.isAuth)
+  const isLoading = useAccountStore((state) => state.isLoadingAuth)
   const registerAccount = useAccountStore((state) => state.registration)
   const loginAccount = useAccountStore((state) => state.login)
   //const accountUser = useAccountStore((state) => state.account)
@@ -43,7 +44,7 @@ export function HomePage() {
     useAccountStore.persist.rehydrate()
     methods.setFocus('email')
   }, [])
-  
+
   const methods = useForm<AuthForm>({
       defaultValues: {
         email: '',
@@ -67,6 +68,9 @@ export function HomePage() {
       <ContentLayout>
         {!accountIsAuth && (
           <div>Не авторизован.</div>
+        )}
+        { isLoadingAuth && (
+          <div className="animate-bounce">Авторизация...</div>
         )}
         {!accountIsAuth && (
           <Card flex='col'>
@@ -92,6 +96,7 @@ export function HomePage() {
                   />
                 }
               />
+              
               <Button size='small' type='submit' priority='primary'>
                 Войти в аккаунт
               </Button>

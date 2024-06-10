@@ -11,6 +11,7 @@ import { BASE_API_URL } from '@/shared/api';
 export type State = {
     account: User
     isAuth: boolean
+    isLoadingAuth: boolean
     errors: object[]
 }
 
@@ -30,9 +31,11 @@ export const useAccountStore = create<State & Actions>()(
             account: { email: '', id: 0, isActivated: false},
             isAuth: false,
             errors: [],
+            isLoadingAuth: false,
             //setAuth: () => {},
             //setUser: () => {},
             login: async (email: string, password: string) => {
+                set({ isLoadingAuth: true })
                 try {
                     const response = await AuthService.login(email, password)
                     console.log(response)
@@ -43,10 +46,13 @@ export const useAccountStore = create<State & Actions>()(
                     }))
                 } catch(e) {
                     console.log('Ошибка логина.')
+                } finally {
+                    set({ isLoadingAuth: false })
                 }
             },
             getUfi: async () => {},
             registration: async (email: string, password: string) => {
+                set({ isLoadingAuth: true })
                 try {
                     const response = await AuthService.registration(email, password)
                     console.log(response)
@@ -57,6 +63,8 @@ export const useAccountStore = create<State & Actions>()(
                     }))
                 } catch(e) {
                     console.log('Ошибка регистрации.')
+                } finally {
+                    set({ isLoadingAuth: false })
                 }
             },
             logout: async () => {
