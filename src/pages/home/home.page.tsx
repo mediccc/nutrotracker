@@ -32,7 +32,7 @@ const ValidationSchema = object({
 export function HomePage() {
 
   const accountIsAuth = useAccountStore((state) => state.isAuth)
-  const isLoading = useAccountStore((state) => state.isLoadingAuth)
+  const isLoadingAuth = useAccountStore((state) => state.isLoadingAuth)
   const registerAccount = useAccountStore((state) => state.registration)
   const loginAccount = useAccountStore((state) => state.login)
   //const accountUser = useAccountStore((state) => state.account)
